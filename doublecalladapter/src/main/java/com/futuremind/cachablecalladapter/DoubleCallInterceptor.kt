@@ -17,7 +17,6 @@ class DoubleCallInterceptor(private val doubleCallManager: DoubleCallManager) : 
         val hackHeader = request.header(SHOULD_DOUBLE_CALL)
         if (hackHeader != null)   request = request.newBuilder().removeHeader(SHOULD_DOUBLE_CALL).build()
         val cacheStrategy = doubleCallManager.rotateCallStrategy(request, hackHeader)
-        System.out.println("CallStrategy: $cacheStrategy")
         return when (cacheStrategy) {
             DoubleCallManager.CallStrategy.NONE                -> chain.proceed(request)
             DoubleCallManager.CallStrategy.IGNORE_CACHE_CALL   -> prepareIgnoredResponse(request)
