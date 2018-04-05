@@ -34,7 +34,7 @@ class MainActivity : AppCompatActivity() {
                 .build()
 
         val cacheFile = File(application.cacheDir, "apiResponses")
-        val doubleCallManager = DoubleCallManager()
+        val doubleCallManager = DoubleCallManager.Builder().setLogging(true).build()
 
         val apiClient = OkHttpClient.Builder()
                 .addInterceptor(DoubleCallInterceptor(doubleCallManager))
